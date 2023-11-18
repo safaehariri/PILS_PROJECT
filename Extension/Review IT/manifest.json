@@ -1,0 +1,17 @@
+{
+    "name": "Review IT",
+    "version": "1.0.0",
+    "description": "Review detector",
+    "manifest_version": 3,
+    "author": "Review IT team",
+    "icons": {
+        "48": "logo.png"
+    },
+    "action":{
+        "default_popup": "popup.html",
+        "default_title": "Save time!"
+    },
+    "permissions": [
+        "activeTab","tabs"
+    ]
+}
