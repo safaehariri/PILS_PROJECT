@@ -10,10 +10,11 @@ body {
     align-items: left;
 } 
 
+
 img {
-    width: 150px;
-    margin-bottom: 10px;
-}
+    width:150px; 
+    margin-bottom: 10px; /* Ajoutez une marge en bas de l'image */
+} 
 
 h1 {
     color: #0a0a0a;
@@ -39,6 +40,7 @@ p {
     line-height: 1;
 }
 
+
 .rectangle {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); 
     padding: 30px;
@@ -46,25 +48,20 @@ p {
     background-color: #ffffff;
 }
 
-.progress-container {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    margin-top: 20px; /* Ajout d'un espace entre les cercles de progression */
-}
 
-.progress-circle {
+.progress-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 20px;
     position: relative;
     width: 100px;
     height: 100px;
-    border-radius: 50%;
-    background-color: transparent;
-    transform-origin: center;
-    box-sizing: border-box;
+    margin: 0px 100px ;
+    text-align: center;
+    align-items: right;
 }
 
-.progress-circle::before {
-    content: "";
+.progress-circle {
     position: absolute;
     top: 0;
     left: 0;
@@ -72,31 +69,26 @@ p {
     height: 100%;
     border-radius: 50%;
     background-color: transparent;
+    transform-origin: center;
     border: 6px solid #1ab40c;
-    border-top: 6px solid #e4e1e1;
-    transform: rotate(45deg);
+    border-top: 6px solid #e4e1e1; 
     box-sizing: border-box;
-}
+   
+} 
 
 .progress-text {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-size: 12px; /* Ajustement de la taille de la police */
+    font-size: 14px;
     color: #555;
-    white-space: nowrap; /* Ajout pour éviter le renvoi à la ligne du texte */
+
+}  
+.category {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    padding: 30px;
+    margin: 20px 100px; /* Adjusted margin for categories */
+    background-color: #ffffff;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-  
