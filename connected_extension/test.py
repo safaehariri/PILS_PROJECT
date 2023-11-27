@@ -1,108 +1,114 @@
 from bs4 import BeautifulSoup
-from retrying import retry
 import requests
 import pandas as pd
 import sys
 import time
 import random
+import json
+import re
+import spacy
+from transformers import pipeline
 from urllib.parse import quote
 from fake_useragent import UserAgent
 from concurrent.futures import ThreadPoolExecutor
+
 # Random user-agent
 ua = UserAgent()
 
+# Load the English linguistic model
+nlp = spacy.load("en_core_web_sm")
+
+def predict_and_classify_sentiment(text):
+    sentiment_pipeline = pipeline("sentiment-analysis", model="nlptown/bert-base-multilingual-uncased-sentiment")
+    result = sentiment_pipeline(text)
+    label = result[0]['label']
+    return 'negative' if '1' in label or '2' in label else 'neutral' if '3' in label else 'positive'
+
+def extract_feature_clauses(text, features):
+    sentences = re.split(r'[,.!?]|(?:\s(?:but|however)\s)', text, flags=re.IGNORECASE)
+    extracts_per_feature = {feature: set() for feature in features}
+    for sentence in sentences:
+        doc = nlp(sentence)
+        for feature in features:
+            if any(token.text.lower() == feature.lower() for token in doc):
+                extracts_per_feature[feature].add(sentence.strip())
+    return extracts_per_feature
+
+def process_reviews(df, features, feature_name):
+    feature_sentiments = {'positive': 0, 'negative': 0, 'neutral': 0}
+    for review in df['reviews']:
+        feature_extracts = extract_feature_clauses(review, features)
+        for feature in features:
+            for extract in feature_extracts[feature]:
+                sentiment = predict_and_classify_sentiment(extract)
+                if sentiment in feature_sentiments:
+                    feature_sentiments[sentiment] += 1
+
+    total = sum(feature_sentiments.values())
+    percentages = {k: (v / total * 100) if total > 0 else 0 for k, v in feature_sentiments.items()}
+    return percentages
+
 def scrap(URL):
-    
-    HEADERS = {
-        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.1.2 Safari/605.1.15',
-        'Accept-Language': 'en-US, en;q=0.5'
-    }
-
-
-    # Créez une instance de UserAgent
-    ua = UserAgent()
-
-
+    HEADERS = {'User-Agent': ua.random, 'Accept-Language': 'en-US, en;q=0.5'}
     webpage = requests.get(URL, headers=HEADERS)
-    print(webpage.status_code)
-    print(webpage.text)
+    print("Status Code:", webpage.status_code)
 
-    soup = BeautifulSoup(webpage.content, "html.parser")
+    soup = BeautifulSoup(webpage.content, "html.parser")    
     reviews = []
-    link = []
     for b in soup.findAll("a", {'data-hook': "see-all-reviews-link-foot"}):
-        link.append(b['href'])
-    print("links", link)
+        review_page_url = "https://www.amazon.com" + b['href']
+        reviews.extend(scrape_reviews(review_page_url))
 
-    # Function to make a request using Crawlbase
-    CRAWLBASE_TOKEN = 'gAeK1ASL9vJyjT7iWKPxtw'  # Your Crawlbase token
+    if reviews:
+        review_data = pd.DataFrame({'reviews': reviews})
+        analyze_and_output(review_data)
+    else:
+        print("No reviews collected.")
 
-    def make_request(url):
-        encoded_url = quote(url, safe='')
-        crawlbase_url = f'https://api.crawlbase.com/?token={CRAWLBASE_TOKEN}&url={encoded_url}'
-        response = requests.get(crawlbase_url, headers={'User-Agent': ua.random})
-        return response
-
+def scrape_reviews(url):
     MAX_RETRIES = 2
     RETRY_SLEEP_SECONDS = 2
 
     def make_request_with_retry(url):
         for attempt in range(MAX_RETRIES):
-            page = make_request(url)
-
+            page = requests.get(url, headers={'User-Agent': ua.random})
             if page.status_code == 200:
                 return page
             else:
                 print(f"Error fetching page {url} - Attempt {attempt + 1} - Status Code: {page.status_code}")
                 time.sleep(RETRY_SLEEP_SECONDS)
-
-        print(f"Failed to fetch page {url} after {MAX_RETRIES} attempts.")
         return None
 
-    def process_page(url):
-        page = make_request_with_retry(url)
+    page = make_request_with_retry(url)
+    if page and page.status_code == 200:
+        soup = BeautifulSoup(page.content, "html.parser")
+        new_reviews = [i.text.strip() for i in soup.findAll("span", {'data-hook': "review-body"})]
+        time.sleep(random.uniform(2, 3))
+        return new_reviews
+    return []
 
-        if page is not None and page.status_code == 200:
-            print("Page", url, "fetched successfully")
-            soup = BeautifulSoup(page.content, "html.parser")
+def analyze_and_output(review_data):
+    # General sentiment analysis
+    review_data['sentiment'] = review_data['reviews'].apply(predict_and_classify_sentiment)
+    general_sentiments = review_data['sentiment'].value_counts(normalize=True) * 100
 
-            new_reviews = [i.text for i in soup.findAll("span", {'data-hook': "review-body"})]
-            if not new_reviews:
-                print("No new reviews found on page", url)
-                return None
+    # Feature-specific analysis
+    feature_sets = {
+        "Battery": ["battery", "charge", "longevity", "battery life"],
+        "Price": ["price", "cost", "affordable", "cheap", "expensive"],
+        "Connectivity": ["connectivity", "connection", "network"]
+    }
+    feature_sentiments = {feature: process_reviews(review_data, features, feature) for feature, features in feature_sets.items()}
 
-            time.sleep(random.uniform(2, 4))
-            return new_reviews
-        else:
-            return None
-
-    if link:
-        new_link = "https://www.amazon.com" + link[0]
-        urls = [new_link + f'&pageNumber={k}' for k in range(1, 4)]  # Adjust the range as needed
-
-        with ThreadPoolExecutor(max_workers=5) as executor:  # Adjust the number of workers as needed
-            reviews = list(filter(None, executor.map(process_page, urls)))
-
-        if reviews:
-            reviews = [review for sublist in reviews for review in sublist]
-            rev = {'reviews': reviews}
-            review_data = pd.DataFrame.from_dict(rev)
-            review_data.to_csv("amazon_data.csv", header=True, index=False)
-            print("Total reviews collected:", len(reviews))
-        else:
-            print("No reviews collected.")
-    else:
-        print("Error fetching initial page - Status Code:", webpage.status_code)
-
-    print(review_data)
-
-    # Afficher un review en entier
-    if not review_data.empty:
-        review = review_data['reviews'].iloc[10]
-        print("Full text of the first review:\n", review)
-    else:
-        print("Aucune revue n'a été collectée.")
+    # Output results
+    final_data = {
+        "general_sentiments": general_sentiments.to_dict(),
+        "feature_specific_sentiments": feature_sentiments
+    }
+    with open('sentiment_analysis_results.json', 'w') as file:
+        json.dump(final_data, file, indent=4)
+    print("Sentiment analysis results saved to 'sentiment_analysis_results.json'")
 
 if __name__ == "__main__":
-    url = sys.argv[1]  
+    url = sys.argv[1]  # Provide the URL as a command-line argument
     scrap(url)

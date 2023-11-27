@@ -10,7 +10,7 @@ from urllib.parse import quote
 from fake_useragent import UserAgent
 from concurrent.futures import ThreadPoolExecutor
 
-URL = "https://www.amazon.com/dp/B0B72HXGLF/ref=sspa_dk_detail_3?pd_rd_i=B0B72HXGLF&pd_rd_w=dXeBD&content-id=amzn1.sym.eb7c1ac5-7c51-4df5-ba34-ca810f1f119a&pf_rd_p=eb7c1ac5-7c51-4df5-ba34-ca810f1f119a&pf_rd_r=NYBPHN7KTACEVSDMQ7EZ&pd_rd_wg=VczZI&pd_rd_r=2cb715fa-5e3f-4c95-a16c-30d2ec887faa&s=electronics&sp_csd=d2lkZ2V0TmFtZT1zcF9kZXRhaWw&th=1s"
+URL = "https://www.amazon.com/Pelican-Protector-Compatible-Anti-Scratch-Protection/dp/B0CC6NZYNW/ref=sr_1_1_sspa?crid=33SAYTHXN08T7&keywords=iphone+15+promax+case&qid=1700482546&sprefix=IPH%2Caps%2C1541&sr=8-1-spons&sp_csd=d2lkZ2V0TmFtZT1zcF9hdGY&psc=1"
 HEADERS = {
     'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.1.2 Safari/605.1.15',
     'Accept-Language': 'en-US, en;q=0.5'
