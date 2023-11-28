@@ -1,3 +1,12 @@
+// Écoutez les messages du contenu de la page
+chrome.runtime.onMessage.addListener(function (message, sender, response) {
+    if (message.from === 'content' && message.subject === 'sendDataToPopup') {
+        // Utilisez les données renvoyées du serveur pour mettre à jour le HTML
+        updatePopupHTML(message.data);
+        p=message.data
+        console.log("oke")
+    }
+});
 
 
 chrome.tabs.query(
@@ -26,5 +35,22 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('buttonSelect').onclick = sendActiveTabUrl;
 });
 
+// Fonction pour mettre à jour le HTML du popup avec les données reçues
+function updatePopupHTML(data) {
+    // Utilisez les données renvoyées du serveur pour mettre à jour le HTML
+    console.log('Data received in popup:', data);
+
+    // Accédez aux pourcentages des variables indépendantes
+    const negatif = data['VariablesIndependantes']['PourcentageAvisNegatifGlobal']
+    document.getElementById('negatifValue').textContent = `${negatif}%`;
+
+    // const positif = data['VariablesIndependantes']['PourcentageAvisPositifGlobal']
+    // document.getElementById('PositifValue').textContent = `${positif}%`;
+
+    // const neutre = data['VariablesIndependantes']['PourcentageAvisNeutreGlobal']
+    // document.getElementById('neutreValue').textContent = `${neutre}%`;
+
+
+}
 
 
