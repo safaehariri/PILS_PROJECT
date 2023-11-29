@@ -1,4 +1,5 @@
-// Écoutez les messages du contenu de la page
+
+
 chrome.runtime.onMessage.addListener(function (message, sender, response) {
     if (message.from === 'content' && message.subject === 'sendDataToPopup') {
         // Utilisez les données renvoyées du serveur pour mettre à jour le HTML
@@ -29,6 +30,17 @@ function sendActiveTabUrl() {
         // For instance, you could copy it to the clipboard or send it to a server
     });
 }
+
+document.addEventListener('DOMContentLoaded', function() {
+    var moreButton = document.getElementById('seeMoreButton');
+    moreButton.addEventListener('click', function() {
+      // Ouvrir un nouvel onglet avec le contenu de index.html
+      chrome.tabs.create({ url: 'page.html' });
+      
+      
+      window.close();
+    });
+});
 
 // Set up the event listener for the button
 document.addEventListener('DOMContentLoaded', function() {
