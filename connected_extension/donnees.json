@@ -1,1 +1,30 @@
+{
+  "VariablesIndependantes": {
+    "PourcentageAvisNegatifGlobal": 25,
+    "PourcentageAvisPositifGlobal": 40,
+    "PourcentageAvisNeutreGlobal": 20
+  },
+  "Categorie1": {
+    "nom": "Connectivity",
+    "AvisNegatif": 20,
+    "AvisPositif": 60
+  },
+  "Categorie2": {
+    "nom": "Battery",
+    "AvisNegatif": 15,
+    "AvisPositif": 70
+  },
+  "Categorie3": {
+    "nom": "Price",
+    "AvisNegatif": 10,
+    "AvisPositif": 80
+  },
+
+  "Categorie4": {
+    "nom": "Sound Quality",
+    "AvisNegatif": 30,
+    "AvisPositif": 70
+  }
+
+}
 
