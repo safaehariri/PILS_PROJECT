@@ -1,5 +1,3 @@
-
-
 chrome.runtime.onMessage.addListener(function (message, sender, response) {
     if (message.from === 'content' && message.subject === 'sendDataToPopup') {
         // Utilisez les données renvoyées du serveur pour mettre à jour le HTML
@@ -17,8 +15,8 @@ chrome.tabs.query(
 	chrome.tabs.sendMessage(tabs[0].id, 
 		{from: 'popup',
 	     subject: 'getData'});
-        }
-	);
+    }
+);
 
 // Function to get the URL of the active tab and perform an action with it
 function sendActiveTabUrl() {
@@ -31,21 +29,65 @@ function sendActiveTabUrl() {
     });
 }
 
-document.addEventListener('DOMContentLoaded', function() {
+
+// To open the new page
+document.addEventListener('DOMContentLoaded', function () {
     var moreButton = document.getElementById('seeMoreButton');
-    moreButton.addEventListener('click', function() {
-      // Ouvrir un nouvel onglet avec le contenu de index.html
-      chrome.tabs.create({ url: 'page.html' });
-      
-      
-      window.close();
+    moreButton.addEventListener('click', function () {
+        // Open a new tab with the content of index.html
+        chrome.tabs.create({ url: 'page.html' }, function (newTab) {
+            // Callback function after the new tab is created
+            // Access the active tab URL if needed: newTab.url
+            console.log("New tab created with URL: " + newTab.url);
+
+            
+        });
+
     });
 });
 
-// Set up the event listener for the button
-document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById('buttonSelect').onclick = sendActiveTabUrl;
+
+function hideElements() {
+    document.querySelectorAll('.chart-container, .progress-container,#seeMoreButton')
+        .forEach(el => el.style.display = 'none');
+}
+
+function showElements() {
+    document.querySelectorAll(' .progress-container,.chart-container, #seeMoreButton')
+        .forEach(el => el.style.display = 'flex');
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    
+    var loadingBar = document.getElementById('loadingBar');
+    // Show loading bar
+    loadingBar.style.display = 'flex';
+    hideElements();
+    fetchDataFromServer();
 });
+
+// safae
+function fetchDataFromServer() {
+    fetch('http://127.0.0.1:5000/get_data')
+    .then(response => {
+        if (response.status === 202) {
+            console.log("Data not ready, checking again...");
+            setTimeout(fetchDataFromServer, 3000); // Check again after 3 seconds
+        } else {
+            return response.json(); // Parse the JSON file content
+        }
+    })
+    .then(data => {
+        if (data) {
+            showElements();
+            updatePopupHTML(data); // Function to update popup with the data
+            document.getElementById('loadingBar').style.display = 'none';
+        }
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+    });
+}
 
 // Fonction pour mettre à jour le HTML du popup avec les données reçues
 function updatePopupHTML(data) {
@@ -53,26 +95,26 @@ function updatePopupHTML(data) {
     console.log('Data received in popup:', data);
 
     // Accédez aux pourcentages des variables indépendantes
-    const negatif = data['VariablesIndependantes']['PourcentageAvisNegatifGlobal']
+    const negatif = data['general_sentiments']['negative']
     document.getElementById('negatifValue').textContent = `${negatif}%`;
 
-    const positif = data['VariablesIndependantes']['PourcentageAvisPositifGlobal']
+    const positif = data['general_sentiments']['positive']
     document.getElementById('PositifValue').textContent = `${positif}%`;
 
-    const neutre = data['VariablesIndependantes']['PourcentageAvisNeutreGlobal']
-    document.getElementById('neutreValue').textContent = `${neutre}%`;
+    // const neutre = data['general_sentiments']['PourcentageAvisNeutreGlobal']
+    // document.getElementById('neutreValue').textContent = `${neutre}%`;
 
     
     // Sélectionnez l'élément path par sa classe
     var cercleDeProgression1 = document.querySelector('.circle-red');
     var cercleDeProgression2 = document.querySelector('.circle-green');
-    var cercleDeProgression3 = document.querySelector('.circle-blue');
+    // var cercleDeProgression3 = document.querySelector('.circle-blue');
     
 
     // Mettez à jour la valeur de stroke-dasharray en fonction de la valeur dynamique
     cercleDeProgression1.setAttribute('stroke-dasharray', negatif + ', 100');
     cercleDeProgression2.setAttribute('stroke-dasharray', positif + ', 100');
-    cercleDeProgression3.setAttribute('stroke-dasharray', neutre + ', 100');
+    // cercleDeProgression3.setAttribute('stroke-dasharray', neutre + ', 100');
 
 
 
