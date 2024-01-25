@@ -51,7 +51,7 @@ chrome.runtime.onMessage.addListener(function(message, sender, response) {
 		sendDataToServer(currentUrl);
 
 		// Envoie la requête pour récupérer les données du serveur
-        fetchDataFromServer();
+        //fetchDataFromServer(); safae
         // Start the review scraping process
         
     }
