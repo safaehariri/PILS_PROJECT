@@ -1,0 +1,317 @@
+/* style.css */
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #ffffff;
+    padding: 20px;
+}
+
+.popup-container {
+    align-items: left;
+} 
+
+
+h1 {
+    color: #0a0a0a;
+    font-size: 30px;
+    margin-top: 0px;
+    margin-bottom: 2px;
+}
+
+h2 {
+    color: #eb821f;
+    font-style: italic;
+    margin-top: 2px;
+    margin-bottom: 0px;
+}
+
+h3 {
+    color: #444;
+    font-size: 22px;
+    margin-bottom: 5px;
+    margin-left: 15px;
+    margin-top: 15px;
+}
+
+h4 {
+    color: #444;
+    font-size: 18px;
+    margin-bottom: 5px;
+    margin-left: 15px;
+    margin-top: 10px;
+}
+p {
+    font-size: 12px;
+    line-height: 1;
+    margin-left: 25px;
+
+}
+
+.rectangle1 {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); 
+    padding: 10px;
+    margin-top: -30px; /* Ajustez la marge supérieure selon vos besoins */
+    margin-right: 120px; /* Ajustez la marge droite selon vos besoins */
+    margin-bottom: 20px; /* Ajustez la marge inférieure selon vos besoins */
+    background-color: #ffffff;
+    /* border-radius: 30px; */
+    margin-left: 260px;
+    border-radius: 20px;
+    height: 250px;
+}
+
+.rectangle {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); 
+    padding: 10px;
+    margin: 40px 120px ;
+    background-color: #EFF1F7;
+    margin-left: 260px;
+}
+
+
+.chart-container {
+    width:80%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 20px;
+    
+}
+
+
+.comment-container {
+    position: relative;
+    margin-bottom: 20px;
+    padding: 10px;
+    /*border: 1px solid #ccc;*/
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    background-color: rgba(199, 93, 93, 0.4);
+    /* background-color: #f2b6b6; */
+    list-style: none;
+    margin: 30px
+}
+
+.comment-container-pos {
+    position: relative;
+    margin-bottom: 20px;
+    padding: 10px;
+    /*border: 1px solid #ccc;*/
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    background-color: rgba(170, 210, 175, 0.5);
+    /* background-color: rgb(170, 210, 175);  */
+    list-style: none;
+    margin: 30px
+}
+
+/* Ajoutez ces styles dans votre fichier CSS */
+.rectangle1 h3 {
+    display: inline-block; /* Affiche le titre et le conteneur sur la même ligne */
+    vertical-align: middle; /* Alignement vertical au centre par rapport au texte du titre */
+    margin-right: 150px; /* Ajoute une marge à droite du titre (ajustez selon vos besoins) */
+    margin-top: 10px;
+}
+
+.search-container {
+    display: inline-block; /* Affiche le conteneur sur la même ligne */
+    vertical-align: middle; /* Alignement vertical au centre par rapport au texte du titre */
+    margin-top:10px;
+    margin-bottom: 10px;
+}
+
+#categoryDropdown {
+    padding: 8px;
+    font-size: 14px;
+    border: 1.3px solid #007BFF;
+    border-radius: 4px;
+    margin-right: 10px; 
+}
+
+#searchButton {
+    padding: 8px 15px;
+    font-size: 14px;
+    background-color: rgba(128, 186, 255, 0.2); /* Transparent background */
+    color: #007BFF; /* Text color */
+    border: 2px solid #007BFF; /* Border color */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+#searchButton:hover {
+    background-color: #007BFF; /* Background color on hover */
+    color: #fff; /* Text color on hover */
+    border-color: #007BFF;
+}
+
+
+
+.progress-circle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 200px; /* Adjusted size */
+    height: 160px; /* Adjusted size */
+    /* margin-top: 5px; */
+    margin-bottom: 25px;
+}
+
+.circle-bg {
+    fill: none;
+    stroke: #eee;
+    stroke-width: 3.5;
+    margin-top: 50px;
+}
+
+.circle {
+    fill: none;
+    stroke-width: 4;
+    stroke-linecap: round;
+    animation: progress 1s ease-out forwards;
+}
+
+@keyframes progress {
+    0% {
+        stroke-dasharray: 0 100;
+    }
+}
+
+/* Customize the stroke color */
+.circle-blue {
+    stroke: #3498db;
+}
+.circle-red {
+    stroke: red;
+}
+.circle-green {
+    stroke: green;
+}
+
+/* Adjust the stroke-dasharray value to reflect the percentage */
+
+.seventy-percent {
+    stroke-dasharray: 70 100;
+}
+
+.twenty-percent {
+    stroke-dasharray: 20 100;
+}
+
+.ten-percent {
+    stroke-dasharray: 10 100;
+}
+
+.type-percentage {
+    font-size: 5px; /* Adjusted font size */
+    dominant-baseline: bottom ;
+    text-anchor: middle;
+    fill: #485a66; 
+    margin: 100px;
+}
+.percentage {
+    font-size: 8px; /* Adjusted font size */
+    dominant-baseline: central;
+    text-anchor: middle;
+    fill: #485a66; 
+}
+
+.progress-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgb(24, 192, 52);
+    color: rgb(255, 255, 255);
+    border-radius: 4px;
+    position: relative; /* Allows absolute positioning relative to this container */
+    height: 20px;
+    margin-bottom: 10px; /* Adjust as needed */
+    margin : 30px;
+}
+
+.progress-bar {
+    background-color: rgb(204, 26, 26) ;
+    color: rgb(255, 255, 255);
+    height: 100%; 
+    /* Full height of the container */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px 0 0 4px; /* Rounded corners on the left side */
+    position: absolute; /* Absolute position */
+    left: 0; /* Align to the left side */
+    top: 0; /* Align to the top */
+}
+
+.progress-remaining {
+    padding-right: 300px; /* Adjust as needed */
+    position: absolute; /* Absolute position */
+    right: 0; /* Align to the right side */
+    top: 0; /* Align to the top */
+    height: 100%; /* Full height of the container */
+    display: flex;
+    align-items: center; /* Center vertically */
+    justify-content: center; /* Center horizontally */
+}
+
+
+.hidden {
+    display: none;
+}
+
+.container {
+    padding: 10px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    position: absolute;
+    z-index: 100;
+}
+#aboutUsLink,
+#helpLink {
+    display: inline-block;
+    width: 120px;
+    padding: 10px 20px;
+    font-size: 13px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    border: 2px solid #007BFF; /* Border color */
+    color: #007BFF; /* Text color */
+    background-color: rgba(128, 186, 255, 0.2); /* Transparent background */
+    border-radius: 5px; /* Rounded corners */
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+    margin-left: -5px;
+}
+
+#aboutUsLink:hover,
+#helpLink:hover {
+    background-color: #007BFF; /* Background color on hover */
+    color: #fff; /* Text color on hover */
+    border-color: #007BFF; /* Border color on hover */
+}
+
+.who-content p {
+    width: 80;
+    box-sizing: border-box;
+    margin-left:-10px;
+}
+
+.help-content p {
+    width: 80;
+    box-sizing: border-box;
+    margin-left:-10px;
+}
+.dashboard-container {
+    background-color: #ffffff;
+    width: 170px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    padding: 20px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    position: absolute; /* Position absolue pour le positionnement personnalisé */
+    top: 90px; /* Ajustez la valeur en fonction de l'espace entre le titre et le tableau de bord */
+    left: 25px; /* Ajustez la valeur pour la distance de la gauche de la fenêtre */
+}
