@@ -171,6 +171,7 @@ p {
     animation: progress 1s ease-out forwards;
 }
 
+
 @keyframes progress {
     0% {
         stroke-dasharray: 0 100;
@@ -282,6 +283,7 @@ p {
     border-radius: 5px; /* Rounded corners */
     transition: background-color 0.3s, color 0.3s, border-color 0.3s;
     margin-left: -5px;
+    margin-bottom: 10px;
 }
 
 #aboutUsLink:hover,
@@ -304,7 +306,7 @@ p {
 }
 .dashboard-container {
     background-color: #ffffff;
-    width: 170px;
+    width: 140px;
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -313,5 +315,5 @@ p {
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
     position: absolute; /* Position absolue pour le positionnement personnalisé */
     top: 90px; /* Ajustez la valeur en fonction de l'espace entre le titre et le tableau de bord */
-    left: 25px; /* Ajustez la valeur pour la distance de la gauche de la fenêtre */
+    left: 35px; /* Ajustez la valeur pour la distance de la gauche de la fenêtre */
 }
