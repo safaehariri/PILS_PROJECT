@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-
+    
     // Add an event listener for the search button
     const searchButton = document.getElementById('searchButton');
     searchButton.addEventListener('click', function () {
@@ -180,7 +180,7 @@ document.addEventListener('DOMContentLoaded', function () {
             readMoreButton.textContent = 'Read more reviews';
 
             readMoreButton.style.marginTop = '10px'; // Exemple de marge en haut
-            readMoreButton.style.background = '#EBAB2B'; // Couleur de fond jaune-orange
+            readMoreButton.style.background = '#A9A9A9';// Couleur de fond jaune-orange
             readMoreButton.style.border = 'none'; // Supprimer la bordure
             readMoreButton.style.borderRadius = '13.62px'; // Bouts arrondis
             readMoreButton.style.color = '#000'; 
