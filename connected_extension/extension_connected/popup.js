@@ -48,12 +48,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 function hideElements() {
-    document.querySelectorAll('.chart-container, .progress-container,#seeMoreButton')
+    document.querySelectorAll('.chart-container, .progress-container,#seeMoreButton,div[style*="color: rgba(0, 0, 0, 0.50)"]')
         .forEach(el => el.style.display = 'none');
 }
 
 function showElements() {
-    document.querySelectorAll(' .progress-container,.chart-container, #seeMoreButton')
+    document.querySelectorAll(' .progress-container,.chart-container, #seeMoreButton,div[style*="color: rgba(0, 0, 0, 0.50)"]')
         .forEach(el => el.style.display = 'flex');
 }
 
@@ -176,4 +176,3 @@ function updatePopupHTML(data) {
 }
 
 
-//ines
