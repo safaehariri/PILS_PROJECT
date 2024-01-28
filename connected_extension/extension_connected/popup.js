@@ -32,6 +32,7 @@ function sendActiveTabUrl() {
 
 // To open the new page
 document.addEventListener('DOMContentLoaded', function () {
+    
     var moreButton = document.getElementById('seeMoreButton');
     moreButton.addEventListener('click', function () {
         // Open a new tab with the content of index.html
@@ -40,6 +41,17 @@ document.addEventListener('DOMContentLoaded', function () {
             // Access the active tab URL if needed: newTab.url
             console.log("New tab created with URL: " + newTab.url);
 
+             // Send the current tab URL to content script
+             chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+                var activeTab = tabs[0];
+                var activeTabUrl = activeTab.url;
+                chrome.runtime.sendMessage({
+                    from: 'popup',
+                    subject: 'sendCurrentUrl',
+                    data: activeTabUrl
+                });
+                // chrome.tabs.sendMessage(activeTab.id, {from: 'popup', subject: 'sendCurrentUrl', data: activeTabUrl});
+            });
             
         });
 
@@ -48,12 +60,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 function hideElements() {
-    document.querySelectorAll('.chart-container, .progress-container,#seeMoreButton,div[style*="color: rgba(0, 0, 0, 0.50)"]')
+    document.querySelectorAll('.chart-container, .progress-container, #seeMoreButton, .review-statistics, .key-features')
         .forEach(el => el.style.display = 'none');
 }
 
 function showElements() {
-    document.querySelectorAll(' .progress-container,.chart-container, #seeMoreButton,div[style*="color: rgba(0, 0, 0, 0.50)"]')
+    document.querySelectorAll(' .progress-container,.chart-container, #seeMoreButton, .review-statistics, .key-features' )
         .forEach(el => el.style.display = 'flex');
 }
 
@@ -64,6 +76,12 @@ document.addEventListener('DOMContentLoaded', () => {
     loadingBar.style.display = 'flex';
     hideElements();
     fetchDataFromServer();
+});
+
+// current url
+chrome.tabs.query({active:true,currentWindow:true},function(tabs){
+    const currentUrl=tabs[0].url;
+    console.log("Current URL:", currentUrl);
 });
 
 // safae
