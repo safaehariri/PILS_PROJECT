@@ -171,6 +171,7 @@ document.addEventListener('DOMContentLoaded', function () {
         displayedComments.forEach(comment => {
             const commentElement = document.createElement('p');
             commentElement.textContent = `- ${comment}`;
+            commentElement.classList.add('comment-line');
             commentsContainer.appendChild(commentElement);
         });
     
@@ -178,15 +179,19 @@ document.addEventListener('DOMContentLoaded', function () {
         if (comments.length > maxComments) {
             const readMoreButton = document.createElement('button');
             readMoreButton.textContent = 'Read more reviews';
-
+            // readMoreButton.style.textAlign = 'center';
+    
+            // Ajoutez ces styles pour centrer le bouton
+            readMoreButton.style.display = 'block'; // Affiche le bouton comme un bloc
+            readMoreButton.style.margin = 'auto'; // Marge automatique pour centrer horizontalement
             readMoreButton.style.marginTop = '10px'; // Exemple de marge en haut
-            readMoreButton.style.background = '#A9A9A9';// Couleur de fond jaune-orange
+            readMoreButton.style.fontFamily = "Helvetica, sans-serif";
+            readMoreButton.style.fontSize = "14px";
+            readMoreButton.style.background = '#EBAB2B'; // Couleur de fond jaune-orange
             readMoreButton.style.border = 'none'; // Supprimer la bordure
             readMoreButton.style.borderRadius = '13.62px'; // Bouts arrondis
-            readMoreButton.style.color = '#000'; 
-            readMoreButton.style.marginTop = '10px'; // Exemple de marge en haut
+            readMoreButton.style.color = '#000';
             readMoreButton.style.height = '30px';
-            readMoreButton.style.marginLeft= '360px';
 
             readMoreButton.addEventListener('click', function () {
                 // Efface le contenu actuel du conteneur
@@ -209,7 +214,6 @@ document.addEventListener('DOMContentLoaded', function () {
             commentsContainer.appendChild(readMoreButton);
         }
     }
-
     
     // Appeler fetchDataFromServer et stocker le résultat dans storedData
     fetchDataFromServer().then(data => {
