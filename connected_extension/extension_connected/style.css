@@ -109,9 +109,10 @@ p {
 .rectangle1 h3 {
     display: inline-block; /* Affiche le titre et le conteneur sur la même ligne */
     vertical-align: middle; /* Alignement vertical au centre par rapport au texte du titre */
-    margin-right: 150px; /* Ajoute une marge à droite du titre (ajustez selon vos besoins) */
+    margin-right: 150px; 
     margin-top: 10px;
 }
+
 
 .search-container {
     display: inline-block; /* Affiche le conteneur sur la même ligne */
@@ -151,8 +152,8 @@ p {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 200px; /* Adjusted size */
-    height: 160px; /* Adjusted size */
+    width: 200px; 
+    height: 160px; 
     /* margin-top: 5px; */
     margin-bottom: 25px;
 }
@@ -178,7 +179,7 @@ p {
     }
 }
 
-/* Customize the stroke color */
+
 .circle-blue {
     stroke: #3498db;
 }
@@ -189,29 +190,22 @@ p {
     stroke: green;
 }
 
-/* Adjust the stroke-dasharray value to reflect the percentage */
-
-.seventy-percent {
-    stroke-dasharray: 70 100;
-}
-
-.twenty-percent {
-    stroke-dasharray: 20 100;
-}
-
-.ten-percent {
-    stroke-dasharray: 10 100;
-}
-
 .type-percentage {
-    font-size: 5px; /* Adjusted font size */
+    font-size: 4px; 
+    font-family: "Arial", sans-serif;
+    font-weight: bold; 
     dominant-baseline: bottom ;
     text-anchor: middle;
-    fill: #485a66; 
+    fill: #485a66;  
     margin: 100px;
+    font-family: 'Arial', sans-serif; 
 }
+
+
 .percentage {
-    font-size: 8px; /* Adjusted font size */
+    font-family: "Arial", sans-serif;
+    font-size: 5.5px; 
+    font-weight: bold; 
     dominant-baseline: central;
     text-anchor: middle;
     fill: #485a66; 
@@ -224,35 +218,41 @@ p {
     background-color: rgb(24, 192, 52);
     color: rgb(255, 255, 255);
     border-radius: 4px;
-    position: relative; /* Allows absolute positioning relative to this container */
+    position: relative; 
     height: 20px;
-    margin-bottom: 10px; /* Adjust as needed */
+    margin-bottom: 10px; 
     margin : 30px;
 }
 
 .progress-bar {
-    background-color: rgb(204, 26, 26) ;
+    background-color: rgb(204, 26, 26);
+    font-weight: bold;
+    font-family: sans-serif; 
+    font-size: 13px;
     color: rgb(255, 255, 255);
-    height: 100%; 
-    /* Full height of the container */
+    height: 100%;
     display: flex;
     align-items: center;
-    justify-content: center;
-    border-radius: 4px 0 0 4px; /* Rounded corners on the left side */
-    position: absolute; /* Absolute position */
-    left: 0; /* Align to the left side */
-    top: 0; /* Align to the top */
+    justify-content: flex-start; 
+    padding-left: 10px; 
+    border-radius: 4px 0 0 4px; 
+    position: absolute;
+    left: 0;
+    top: 0;
 }
 
 .progress-remaining {
-    padding-right: 300px; /* Adjust as needed */
-    position: absolute; /* Absolute position */
-    right: 0; /* Align to the right side */
-    top: 0; /* Align to the top */
-    height: 100%; /* Full height of the container */
+    font-weight: bold;
+    font-family: sans-serif; 
+    font-size: 13px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
     display: flex;
-    align-items: center; /* Center vertically */
-    justify-content: center; /* Center horizontally */
+    align-items: center;
+    justify-content: flex-end; 
+    padding-right: 10px; 
 }
 
 
@@ -294,7 +294,7 @@ p {
 }
 
 .who-content p {
-    width: 80;
+    /* width: 10px; */
     box-sizing: border-box;
     margin-left:-10px;
 }
@@ -305,15 +305,20 @@ p {
     margin-left:-10px;
 }
 .dashboard-container {
-    background-color: #ffffff;
-    width: 140px;
-    height: 100%;
+    background-color: #EFF1F7;
+    width: 150px;
+    height: 110%;
     display: flex;
     flex-direction: column;
-    align-items: left;
+    align-items: center;
     padding: 20px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-    position: absolute; /* Position absolue pour le positionnement personnalisé */
-    top: 90px; /* Ajustez la valeur en fonction de l'espace entre le titre et le tableau de bord */
-    left: 35px; /* Ajustez la valeur pour la distance de la gauche de la fenêtre */
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); 
+    position: absolute; 
+    top: 90px; 
+    left: 35px; 
 }
+
+.comment-line {
+    line-height: 1.8; 
+  }
+
